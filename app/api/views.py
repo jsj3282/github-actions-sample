@@ -8,7 +8,7 @@ def api(request):
     if settings.API_HOST:
         api_url = f'http://{settings.API_HOST}/api/'
         response = requests.get(api_url)
-        return JsonResponse({'message': response.json().get('message'), 
+        return JsonResponse({'message': response.json().get('message'),
                              'message from': api_url})
     else:
         return JsonResponse({'message': 'Does not specified `API_HOST`.'})

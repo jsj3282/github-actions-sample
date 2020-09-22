@@ -46,7 +46,4 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build \
-              --build-arg BUILD_COMMIT=$IMAGE_TAG \
-              -t ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-sample:$IMAGE_TAG .
-
+          docker build -t github-actions-sample:$IMAGE_TAG .

@@ -36,7 +36,7 @@ jobs:
       run: flake8 api
     - name: Run Tests
       run: python manage.py test
-   cd:
+ cd:
     name: Continuous Deployment
     runs-on: ubuntu-latest
     steps:
@@ -47,5 +47,4 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         docker build \
-            --build-arg BUILD_COMMIT=$IMAGE_TAG \
             -t ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-sample:$IMAGE_TAG .

@@ -1,0 +1,226 @@
+---
+Title: 1-3. AWS_Product_FAQ_Computing_Lambda
+Publish Date: 2020-10-16 13:08:15
+---
+
+### 3) AWS Lambda
+
+- 일반
+  - AWS Lambda란?
+    - AWS Lambda를 사용하면 서버를 프로비저닝하거나 관리할 필요 없이 코드를 실행할 수 있음. 
+    -  코드를 업로드하기만 하면, Lambda에서 높은 가용성으로 코드를 실행 및 확장하는 데 필요한 모든 것을 처리함. 
+    - 다른 AWS 서비스에서 코드를 자동으로 트리거하도록 설정하거나 웹 또는 모바일 앱에서 직접 코드를 호출할 수 있음.
+  - 이점
+    - 서버 관리 불필요
+    - 지속적 크기 조정
+    - 밀리초 단위로 측정
+    - 일관된 성능
+  - 서버리스 컴퓨팅이란 무엇인가?
+    - **서버리스 컴퓨팅**을 사용하면 서버를 고려하지 않고 애플리케이션과 서비스를 구축하고 실행할 수 있음. 서버리스 컴퓨팅에서도 여전히 애플리케이션이 서버에서 실행되지만, 모든 서버 관리는 AWS에서 수행. 서버리스 컴퓨팅의 핵심은 서버를 프로비저닝하거나 관리하지 않고도 코드를 실행할 수 있도록 지원하는 AWS Lambda임.
+  - AWS Lambda는 언제 사용해야 하는가?
+    - AWS Lambda를 사용하면 Amazon S3 버킷 변경, Amazon DynamoDB 테이블 업데이트 또는 애플리케이션이나 디바이스에서 생성한 **사용자 지정 이벤트에 대한 응답**으로 손쉽게 코드를 실행할 수 있음. Lambda를 사용하면 자체 인스턴스를 프로비저닝할 필요가 없음. Lambda에서 용량 프로비저닝, 서버 상태 모니터링, 기본 컴퓨팅 리소스에 보안 패치 적용, 코드 배포, 웹 서비스 프런트 엔드 실행 및 코드 모니터링과 로깅 등 모든 운영 및 관리 작업을 수행. AWS Lambda는 코드 확장이 용이하고 고가용성이 뛰어나며 사용자가 별도 작업을 할 필요가 없음.
+  - AWS Lambda에서는 어떤 종류의 코드를 실행할 수 있는가?
+    - AWS Lambda를 사용하여 Amazon DynamoDB에서 데이터를 검색하고 변환하는 모바일 백엔드, Amazon S3에 업로드되는 객체를 압축 또는 변환하는 핸들러, Amazon Web Service로 요청된 API 호출 감사 및 보고, Amazon Kinesis를 사용하여 서버리스 스트리밍 데이터 처리를 구축할 수 있음.
+  - AWS Lambda는 어떤 언어를 지원하는가?
+    - AWS Lambda는 기본적으로 Java, Go, PowerShell, Node.js, C#, Python 및 Ruby 코드를 지원, 그 밖에 프로그래밍 언어를 사용해 함수를 작성할 수 있도록 Runtime API도 제공.
+  - AWS Lambda를 실행하는 인프라에 액세스할 수 있는가?
+    - 아니요. AWS Lambda가 사용자 대신 컴퓨팅 인프라를 운영하여 상태 검사를 수행하고 보안 패치를 적용하며 그 외 주기적인 유지 관리를 수행할 수 있음.
+  - AWS Lambda는 내 코드를 어떻게 분리하는가?
+    - 각 AWS Lambda 함수는 격리된 자체 환경에서 자체 리소스와 파일 시스템 보기로 실행됨. AWS Lambda는 Amazon EC2와 동일한 기술을 사용하여 인프라와 실행 수준에서 보안과 분리를 제공.
+  - AWS Lambda는 내 코드를 어떻게 보호하는가?
+    - AWS Lambda는 Amazon S3에 코드를 저장하고 저장된 데이터를 암호화하고, AWS Lambda는 코드를 사용하는 동안 추가 무결성 검사를 수행함.
+- AWS Lambda 함수
+  - AWS Lambda 함수란 무엇인가?
+    - AWS Lambda에서 실행하는 코드는 'Lambda 함수'로 업로드됨. 각 함수에는 이름과 설명, 진입점, 리소스 요구 사항 등 연관된 구성 정보가 포함되어 있음. 코드는 **'상태 비저장'** 스타일로 작성되어야 합니다. 즉, **기본 컴퓨팅 인프라에 대한 선호도가 없다고 가정**해야 합니다. 로컬 파일 시스템 액세스, 하위 프로세스 및 유사한 아티팩트는 요청 수명 기간 이상 확장될 수 없으며 모든 지속 상태는 Amazon S3, Amazon DynamoDB 또는 다른 인터넷 사용 스토리지 서비스에 저장되어야 합니다. Lambda 함수는 라이브러리를 포함할 수 있으며 심지어 기본 라이브러리도 포함할 수 있습니다.
+  - AWS Lambda는 함수 인스턴스를 재사용하는가?
+    - AWS Lambda는 성능 향상을 위해 함수의 인스턴스를 보존하고 새로 사본을 만드는 대신 이를 **재사용**하여 후속 요청에 사용함.
+  - AWS Lambda 함수를 위해 디스크에 스크래치 공간이 필요하면 어떻게 하는가?
+    - 각 Lambda 함수에는 자체 /tmp 디렉터리에 500MB의 비영구 디스크 공간이 제공
+  - AWS Lambda 함수가 상태 비저장이어야 하는 이유는?
+    - 함수를 상태 비저장으로 유지하면 AWS Lambda에서 필요한 만큼 함수 사본을 빠르게 시작하여 수신 이벤트 비율에 따라 조정할 수 있음. AWS Lambda의 프로그래밍 모델은 상태 비저장이지만 코드에서 Amazon S3 또는 Amazon DynamoDB 등 다른 웹 서비스를 호출하면 상태 저장 데이터에 액세스할 수 있음.
+  - AWS Lambda 함수 코드에서 스레드와 프로세스를 사용할 수 있는가?
+    - 예. AWS Lambda를 사용하면 일반 언어 및 추가 스레드와 프로세스 생성과 같은 **운영 체제 기능**을 사용할 수 있음. 메모리, 실행 시간, 디스크, 네트워크 사용을 비롯하여 Lambda 함수에 할당된 리소스는 함수가 사용하는 모든 스레드/프로세스 간에 공유되어야 합니다. 프로세스 실행에는 Amazon Linux에서 지원하는 모든 언어를 사용할 수 있음.
+  - AWS Lambda 함수 코드에 어떤 제한이 적용되는가?
+    - Lambda는 일반 언어와 운영 체제 활동에 최소한의 제한만 적용하려고 노력하지만, 비활성화되는 활동이 몇 가지 있음. 즉, 인바운드 네트워크 연결은 AWS Lambda에서 차단하고, 아웃바운드 연결 전용 TCP/IP 및 UDP/IP 소켓만 지원되며 ptrace(디버깅) 시스템 호출도 차단됨. TCP 포트 25 트래픽도 스팸 방지 조치로 차단됨.
+  - Lambda 콘솔을 사용하여 AWS Lambda 함수를 만들려면 어떻게 해야하는가?
+    - **Node.js 또는 Python을 사용하는 경우 AWS Lambda 콘솔의 코드 편집기를 사용**하여 함수 코드를 작성하고 테스트할 수 있음. 또한, 코드(및 모든 종속 라이브러리)를 ZIP으로 패키징하고 AWS Lambda 콘솔을 사용하여 로컬 환경에서 업로드하거나 ZIP 파일이 있는 Amazon S3 위치를 지정할 수 있음. 업로드 파일은 50MB(압축)보다 작아야 함. **AWS Eclipse 플러그 인을 사용하여 Java로 Lambda 함수를 작성하고 배포**할 수 있음. **Visual Studio 플러그 인을 사용하여 C# 및 Node.js로 Lambda 함수를 작성하고 배포**할 수 있음.
+  - AWS Lambda는 환경 변수를 지원하는가?
+    - 예.  AWS Lambda 콘솔, CLI 또는 SDK를 통해 환경 변수를 손쉽게 생성하고 변경할 수 있음.
+  - 환경 변수에 민감한 정보를 저장해도 되는가?
+    - 데이터베이스 암호와 같은 민감한 정보는 **[AWS Key Management Service](http://docs.aws.amazon.com/kms/latest/developerguide/overview.html)**를 사용하여 클라이언트 측 암호화를 수행한 후 환경 변수에 결과 값을 암호문으로 저장하는 것이 좋음. 이러한 값을 복호화하는 로직을 AWS Lambda 함수 코드에 추가해야 함.
+  - AWS Lambda 함수는 어떻게 관리할 수 있는가?
+    - **AWS Lambda 콘솔의 대시보드**를 사용하여 손쉽게 Lambda 함수를 표시, 삭제, 업데이트 및 모니터링할 수 있음. 또한, **AWS CLI 및 AWS SDK를 사용하여 Lambda 함수를 관리할 수도 있음**.
+  - 함수 간 코드 공유가 가능한가?
+    - 예, 모든 코드(프레임워크, SDK, 라이브러리 등)를 **[Lambda Layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)**로 패키지를 만들어 관리하면서 여러 함수에서 쉽게 공유할 수 있음.
+  - AWS Lambda 함수를 모니터링하려면 어떻게 해야 하는가?
+    - AWS Lambda에서 사용자 대신 Lambda 함수를 자동으로 모니터링하여 총 요청 수, 계정 수준 및 함수 수준 동시성 사용, 지연 시간, 오류 비율, 제한된 요청 등을 비롯한 실시간 지표를 **Amazon CloudWatch**를 통해 보고함. **Amazon CloudWatch 콘솔 또는 AWS Lambda 콘솔**에서 각 Lambda 함수에 대한 통계를 확인할 수 있습니다. 또한, Lambda 함수에서 타사 모니터링 API를 호출할 수도 있습니다.
+  - AWS Lambda 함수의 오류 문제를 해결하려면 어떻게 해야 하는가?
+    - AWS Lambda는 자동으로 **Amazon CloudWatch 로그**와 통합하여, 각 Lambda 함수에 대한 로그 그룹을 생성하고 기본 애플리케이션 수명 주기 이벤트 로그 항목을 제공함. 로그 항목에는 해당 함수의 각 용도에 따라 사용된 리소스 로깅도 포함됨. 로깅 문을 코드에 쉽게 추가로 삽입할 수 있음. 또한, Lambda 함수에서 타사 로깅 API를 호출할 수도 있음. 
+  - AWS Lambda 함수를 확장하려면 어떻게 해야 하는가?
+    - Lambda 함수를 확장할 필요가 없음. AWS Lambda가 함수를 자동으로 확장함. 함수에 대한 이벤트 알림을 받을 때마다 AWS Lambda는 신속하게 컴퓨팅 서버 내 무료 용량을 찾아내어 코드를 실행함. 코드 상태가 저장되지 않으므로 AWS Lambda는 너무 긴 배포와 구성 지연 없이 필요한 만큼 많은 함수 사본을 시작할 수 있음. 함수를 조정하는 데 기본 제한이 없음. AWS Lambda는 수신 이벤트 비율에 맞춰 동적으로 용량을 할당함.
+  - 컴퓨팅 리소스는 AWS Lambda 함수에 어떻게 할당되는가?
+    - AWS Lambda 리소스 모델에서 함수에 사용할 메모리 양을 선택하면 이에 비례하여 CPU 용량과 기타 리소스가 할당. 메모리는 128MB에서 3G까지 64MB 단위로 증가하여 설정 가능.
+  - AWS Lambda 함수는 얼마나 오래 실행할 수 있는가?
+    - AWS Lambda 함수는 실행당 최대 15분 동안 실행하도록 구성될 수 있음. 1초에서 15분 사이의 값으로 제한 시간을 설정할 수 있음.
+  - AWS Lambda 함수 사용 요금은 얼마인가?
+    - AWS Lambda는 사용량에 따라 요금 부과됨.
+  - AWS Lambda는 버전 관리를 지원하는가?
+    - 예. 기본적으로 각 AWS Lambda 함수에는 코드의 현재 버전이 하나 있음. Lambda 함수의 클라이언트가 특정 버전을 호출하거나 최근 구현을 가져올 수 있다.
+  - 코드를 업로드 한 뒤 내 AWS Lambda 함수가 호출될 준비가 되려면 시간이 얼마나 걸리는가?
+    - 배포 시간은 코드 크기에 따라 다를 수 있지만 AWS Lambda 함수는 대개 업로드 후 몇 초 이내에 호출 준비가 됨.
+  - 자체 버전의 지원 라이브러리를 사용할 수 있는가?
+    - 예. AWS Lambda에서 제공한 기본 버전 외에 다른 버전을 사용하도록, 고객의 라이브러리 사본(AWS SDK 포함)을 포함할 수 있음.
+- AWS Lambda를 사용하여 AWS 이벤트 처리
+  - 이벤트 소스란 무엇인가?
+    - **이벤트 소스는 AWS Lambda 함수를 실행하도록 트리거하는 이벤트를 생성하는 AWS 서비스나 개발자가 만든 애플리케이션**임. 일부 서비스는 클라우드 함수를 직접 호출하여(예:Amazon S3) Lambda에 이러한 이벤트를 게시함. 또한, Lambda는 Lambda에 이벤트를 게시하지 않는 다른 서비스에서 리소스를 폴링할 수도 있음. 예를 들어 Lambda는 Amazon Kinesis Streams 또는 Amazon SQS 대기열에서 레코드를 가져오고 가져온 각 메시지에 대해 Lambda 함수를 실행할 수 있음. **AWS CloudTrail**과 같은 많은 다른 서비스는 Amazon S3에 로깅하고 S3 버킷 알림을 사용함으로써 간단하게 이벤트 소스의 역할을 하여 AWS Lambda 함수를 트리거할 수 있습니다.
+  - 이벤트는 AWS Lambda에 어떻게 표시되는가?
+    - **이벤트는 Lambda 함수에 이벤트 입력 파라미터로 전달됨**. Amazon SQS, Amazon Kinesis 및 Amazon DynamoDB Streams와 같이 이벤트가 배치로 수신되는 이벤트 소스의 경우, 요청한 배치 크기에 따라 이벤트 파라미터가 단일 호출에 여러 이벤트를 포함할 수 있음. 
+  - AWS Lambda 함수가 **Amazon S3 버킷의 변경에 응답**하도록 하려면 어떻게 해야 하는가?
+    - AWS Lambda 콘솔에서 함수를 선택하고 Amazon S3 버킷의 알림과 연결할 수 있음. 또는 Amazon S3 콘솔을 사용하여 AWS Lambda 함수에 보내도록 버킷의 알림을 구성할 수도 있음. AWS SDK와 CLI를 통해서도 이와 같은 기능을 사용할 수 있음.
+  - AWS Lambda 함수가 **Amazon DynamoDB 테이블의 업데이트에 응답**하도록 하려면 어떻게 해야 하는가?
+    - 테이블과 연결된 DynamoDB 스트림으로 Lambda 함수를 구독하여 DynamoDB 테이블 업데이트에 대한 Lambda 함수를 트리거할 수 있습니다. Amazon DynamoDB 콘솔, AWS Lambda 콘솔 또는 Lambda의 registerEventSource API를 사용하여 DynamoDB 스트림과 Lambda 함수를 연결할 수 있음.
+  - AWS Lambda 함수가 **Amazon Kinesis 스트림의 레코드를 처리**하도록 하려면 어떻게 해야 합니까?
+    - AWS Lambda 콘솔에서 Lambda 함수를 선택하고, 선택한 함수를 동일한 계정에서 소유하고 있는 Amazon Kinesis 스트림에 연결함. AWS SDK와 CLI를 통해서도 이와 같은 기능을 사용할 수 있음.
+  - AWS Lambda는 **Amazon Kinesis 스트림 및 DynamoDB 스트림의 데이터를 어떻게 처리**하는가?
+    - AWS Lambda 함수로 전송되는 Amazon Kinesis 및 DynamoDB 스트림 레코드는 엄격하게 **샤드별로 순서가 정해짐**. 즉, 2개의 레코드를 하나의 샤드에 저장하면 Lambda는 Lambda 함수가 첫 번째 레코드를 성공적으로 호출한 후에 두 번째 레코드를 호출하도록 보장. 하나의 레코드에 대한 호출이 제한 시간을 초과하거나, 제한되거나, 다른 오류가 발생하는 경우, Lambda는 다음 레코드를 호출하기 전에 첫 번째 레코드에 대한 호출이 성공할 때까지(또는 레코드가 만료 시간인 24시간이 될 때까지) 재시도. 서로 다른 샤드에서의 레코드 순서는 보장되지 않으며 각 샤드 처리는 병렬로 진행.
+  - **Amazon Simple Notification Servcie(SNS)에서 전송한 알림에 응답**하려면 AWS Lambda 함수를 어떻게 사용해야 하는가?
+    - AWS Lambda 콘솔에서 Lambda 함수를 선택하여 Amazon SNS 주제와 연결할 수 있음. AWS SDK와 CLI를 통해서도 이와 같은 기능을 사용할 수 있음.
+  - **Amazon Simple Email Service(SES)에서 전송한 이메일에 응답**하려면 AWS Lambda 함수를 어떻게 사용해야 하느가?
+    - Amazon SES 콘솔에서 Amazon SES가 AWS Lambda 함수에 메시지를 전송하도록 수신 규칙을 설정할 수 있음. AWS SDK와 CLI를 통해서도 같은 기능을 사용할 수 있음.
+  - **Amazon CloudWatch 경보에 응답**하려면 AWS Lambda 함수를 어떻게 사용해야 하는가?
+    - 먼저 Amazon SNS 알림에 전송할 경보를 구성함. 그런 다음 AWS Lambda 콘솔에서 Lambda 함수를 선택하여 Amazon SNS 주제와 연결함.
+  - **Amazon Cognito에서 관리하는 사용자 또는 디바이스 데이터 변경에 응답**하려면 AWS Lambda 함수를 어떻게 사용해야 하는가?
+    - AWS Lambda 콘솔에서 [Amazon Cognito](https://aws.amazon.com/ko/cognito/) 자격 증명 풀과 연결된 데이터 세트가 동기화될 때 트리거할 함수를 선택함. AWS SDK와 CLI를 통해서도 이와 같은 기능을 사용할 수 있음.
+  - 애플리케이션에서 AWS Lambda 함수를 직접 트리거하게 하려면 어떻게 하는가?
+    -  AWS Lambda의 invoke API를 통해 커스텀 이벤트로 Lambda 함수를 호출할 수 있음. 함수 소유자나 소유자가 권한을 부여한 다른 AWS 계정에서만 함수를 호출할 수 있음.
+  - AWS Lambda를 사용하여 모바일 백엔드를 생성하려면 어떻게 하는가?
+    - AWS Lambda가 실행할 코드를 업로드하고, AWS Mobile SDK에 포함된 AWS Lambda SDK를 사용하여 모바일 앱에서 해당 코드를 호출함. 실시간으로 데이터를 검색하고 확인하는 데 비동기식 호출뿐 아니라 직접(동기식) 호출도 사용할 수 있음. 또한, Amazon API Gateway를 사용하여 사용자 지정 API를 정의하고 원하는 REST 호환 클라이언트를 통해 Lambda 함수를 호출할 수 있음.
+  - HTTPS를 통해 AWS Lambda 함수를 호출하려면 어떻게 해야함?
+    - **Amazon API Gateway**를 사용해 커스텀 RESTful API를 정의하여 HTTPS를 통해 Lambda 함수를 호출할 수 있음. 이를 통해 GET, PUT, POST 같은 REST 호출에 응답할 수 있도록 사용자 함수에 대한 엔드포인트가 제공.
+  - 요청을 생성하는 디바이스와 앱에 대한 함수의 동작을 AWS Lambda 함수에서 사용자 지정하도록 하려면 어떻게 하는가?
+    - AWS Mobile SDK에서 호출을 하면, AWS Lambda 함수가 **'context'** 객체를 통해 호출을 요청한 디바이스와 애플리케이션에 대한 정보를 자동으로 확보.
+  - AWS Lambda 함수에서 애플리케이션 최종 사용자의 자격 증명에 따라 함수의 동작을 개인화하도록 하려면 어떻게 해야 하는가?
+    - 앱이 Amazon Cognito 자격 증명을 사용하는 경우, 최종 사용자는 Amazon, Facebook, Google, 및 기타 OpenID Connect 호환 서비스 등 **다양한 퍼블릭 로그인 공급자를 통해 사용자 인증을 처리**할 수 있습니다. 그런 다음, 사용자 자격 증명은 Amazon Cognito의 사용자 데이터에 액세스할 수 있도록 Amazon Cognito ID 형태로 Lambda 함수에 안전하게 자동 제공되거나 Amazon DynamoDB나 다른 웹 서비스에 데이터를 저장하고 검색할 수 있도록 키로 전달됨.
+  - AWS Lambda를 사용하여 Alexa S스킬을 생성하려면 어떻게 해야 하는가?
+    - AWS Lambda는 Alexa의 음성 기반 기능(또는 "스킬")을 쉽게 생성하도록 지원하는 셀프 서비스 API 모음, 도구, 설명서 및 코드 샘플인 Alexa Skills Kit와 통합됨. 새로운 Alexa 스킬용 Lambda 함수를 생성하여 업로드하기만 하면 AWS Lambda에서 나머지를 알아서 수행하여, Alexa 음성 상호 작용에 대한 응답으로 코드를 실행하고 컴퓨팅 리소스를 자동으로 관리.
+  - 이벤트를 처리하는 동안 함수 오류가 발생하면 어떻게 되는가?
+    - Amazon S3 버킷 알림 및 사용자 지정 이벤트의 경우, 코드에 오류 조건이 발생하거나 서비스 또는 리소스 한도를 초과하면 AWS Lambda는 함수 실행을 **세 번 시도**. Amazon DynamoDB Streams, Amazon Kinesis Streams 등 AWS Lambda에서 폴링하는 순차적인 이벤트 소스의 경우 개발자 코드 오류가 발생하면 데이터가 만료될 때까지 Lambda에서 계속 실행을 시도. Amazon Kinesis 및 Amazon DynamoDB 콘솔을 통해, 그리고 AWS Lambda가 함수에 대해 생성하는 Amazon CloudWatch 지표를 통해 진행 상태를 모니터링할 수 있음. 또한, 오류 비율 또는 실행 정체 비율을 기준으로 Amazon CloudWatch 경보를 설정할 수도 있습니다.
+- AWS Lambda를 사용하여 애플리케이션 구축
+  - 서버리스 애플리케이션이란?
+    - Lambda 기반 애플리케이션(서버리스 애플리케이션이라고도 함)은 이벤트에 의해 트리거되는 함수로 구성됨. 일반적으로 서버리스 애플리케이션은 Amazon S3로 객체 업로드, Amazon SNS 알림 또는 API 작업과 같은 이벤트에 의해 트리거되는 하나 이상의 함수로 구성됨. 이러한 함수는 독립적으로 실행되거나 DynamoDB 테이블 또는 Amazon S3 버킷과 같이 다른 리소스를 활용할 수 있음. 가장 기본적인 서버리스 애플리케이션은 바로 하나의 함수이다.
+  - 서버리스 애플리케이션을 배포하고 관리하려면 어떻게 해야 하는가?
+    - 서버리스 애플리케이션은 **AWS Serverless Application Model(AWS SAM)**을 사용해 배포하고 관리할 수 있음. AWS SAM은 AWS에서 서버리스 애플리케이션을 나타내는 규칙을 규정하는 사양임.
+  - 서버리스 애플리케이션용 배포를 자동화하려면?
+    - AWS CodePipeline 및 AWS CodeDeploy를 사용하여 서버리스 애플리케이션의 릴리스 프로세스를 자동화할 수 있음.  CodePipeline은 서버리스 애플리케이션을 릴리스하는 데 필요한 단계를 모델링, 시각화, 자동화할 수 있게 해주는 지속적 전달 서비스임. CodeDeploy는 Lambda 기반 애플리케이션을 위해 배포 자동화 엔진을 제공함. CodeDeploy를 사용하면 카나리아 및 선형 배포와 같은 최상의 모범 사례 방법론에 따라 배포를 오케스트레이션할 수 있으며 새롭게 배포된 코드가 안전하고 안정적이며 생산에 완벽하게 릴리스할 준비가 되었는지 확인하는 데 필요한 안전 장치를 설정할 수 있음.
+  - 서버리스 애플리케이션 구축을 시작하려면 어떻게 해야 하는가?
+    -  시작하려면 AWS Lambda 콘솔로 이동하여 AWS 청사진 중 하나를 다운로드. 다운로드하는 파일에는 AWS SAM 파일(애플리케이션에서 AWS 리소스를 정의)과 .ZIP 파일(함수의 코드를 포함)이 포함되어 있음. 그런 다음 AWS CloudFormation 명령을 사용하여 방금 다운로드한 서버리스 애플리케이션을 패키징하고 배포할 수 있음.
+  - 여러 AWS Lambda 함수 간 호출을 조정하려면?
+    - **[AWS Step Functions](https://aws.amazon.com/ko/step-functions/)**를 사용하면 일련의 AWS Lambda 함수를 특정 순서로 조정할 수 있음.
+  - 서버리스 애플리케이션의 문제를 해결하려면?
+    - **Lambda 함수의 실행 역할에 X-Ray 권한을 추가**하고 함수의 [Tracing Mode]를 [Active]로 변경하여 Lambda 함수에서 [AWS X-Ray](https://aws.amazon.com/ko/xray/)의 추적 기능을 활성화하면 됩니다.
+  - 관계형 데이터베이스에 연결되는 서버리스 애플리케이션을 구축할 수 있는가?
+    - 예. 관계형 데이터베이스에 대한 동시 연결 수천 개를 관리하는 고가용성 데이터베이스 프록시인 **[Amazon RDS 프록시](https://aws.amazon.com/ko/rds/proxy/)**를 사용하여 관계형 데이터베이스에 연결되는 확장성이 높고 안전한 Lambda 기반 서버리스 애플리케이션을 구축할 수 있음. 현재 RDS 프록시는 MySQL 및 Aurora 데이터베이스를 지원. Amazon RDS 콘솔 또는 AWS Lambda 콘솔을 통해 RDS 프록시 사용을 시작할 수 있음. 
+  - AWS SAM의 라이선스는 어떻게 되는가?
+    - 이 사양은 Apache 2.0의 오픈 소스를 사용하므로 상업적 목적으로 사용할 수 있는 라이선스를 통해 AWS SAM을 구축, 배포, 모니터링 및 관리 도구에 도입 및 통합할 수 있음.
+- 프로비저닝된 동시성
+  - AWS Lambda 프로비저닝된 동시성이란?
+    - 프로비저닝된 동시성을 통해 서버리스 애플리케이션 성능을 보다 강력하게 제어할 수 있음. 프로비저닝된 동시성을 활성화하면 두 자리 수 밀리초로 응답하기 위해 기능을 초기화하고 극도의 준비 상태를 유지함.
+  - 프로비저닝된 동시성을 어떻게 설정하고 관리하는가?
+    - AWS Management Console, Lambda API, AWS CLI 및 AWS CloudFormation을 통해 기능에서 동시성을 구성할 수 있음. 프로비저닝된 동시성의 이점을 활용하는 가장 간단한 방법은 **AWS Auto Scaling**을 사용하는 것임. Application Auto Scaling으로 일정을 구성하거나 요구 사항이 변경될 때 Auto Scaling에서 프로비저닝된 동시성 수준을 실시간으로 자동 조정되도록 할 수 있음.
+  - 프로비저닝된 동시성을 언제 사용해야 하는가?
+    - 프로비저닝된 동시성은 웹 또는 모바일 백엔드, 동기식으로 호출되는 API, 대화식 마이크로서비스와 같이 **대기 시간에 민감한 애플리케이션을 구축**하는 데 안성맞춤이다. 애플리케이션의 고유한 요구를 기반으로 알맞은 동시성 크기를 쉽게 구성할 수 있음. 요구가 많은 시간에는 동시성 크기를 늘리고 요구가 적어지면 크기를 줄이거나 완전히 끌 수 있음.
+- AWS Lambda용 Amazon EFS
+  - AWS Lambda용 Amazon EFS란?
+    - AWS Lambda용 Amazon Elastic File System(Amazon EFS)을 사용하는 고객은 온디맨드로 확장할 수 있는 탄력적인 완전관리형 NFS 시스템을 사용하여 대용량 데이터를 거의 모든 규모로 안전하게 읽고, 쓰고, 유지할 수 있으며, 이를 위해 프로비저닝하거나 용량을 관리할 필요가 없음. 이전에는 개발자가 S3 또는 데이터베이스의 데이터를 로컬 임시 스토리지로 다운로드하기 위한 코드를 함수에 추가했으며, 용량도 512MB로 제한되었음. Lambda용 EFS를 사용함에 따라 개발자는 처리할 데이터를 임시 스토리지로 다운로드하기 위한 코드를 작성할 필요가 없음.
+  - Lambda용 Amazon EFS를 설정하려면 어떻게 해야 하는가?
+    - 개발자는 콘솔, CLI 또는 SDK를 사용하여 **[EFS 액세스 포인트](https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html)**를 통해 기존 EFS 파일 시스템을 Lambda 함수에 손쉽게 연결할 수 있음. 함수를 처음 호출하면 파일 시스템이 자동으로 마운트되어 함수 코드에서 사용할 수 있게 됨.
+  - Amazon EFS 파일 시스템을 사용하려면 먼저 VPC 설정으로 함수를 구성해야 하는가?
+    - 예. Amazon EFS에 대한 마운트 대상은 VPC의 서브넷과 연결됨. 따라서 이 VPC에 액세스하도록 AWS Lambda 함수를 구성해야함.
+  - Lambda용 Amazon EFS는 누가 사용하면 좋은가?
+    - Lambda용 EFS는 기계 학습 애플리케이션 구축이나 대규모 참조 파일 또는 모델 로드, 대용량 데이터 처리 또는 백업, 웹 콘텐츠 호스팅 또는 내부 구축 시스템 개발 시 사용하기에 적합함. 또한 고객은 Lambda용 EFS를 사용하여 StepFunctions 워크플로에서 상태 저장 마이크로서비스 아키텍처 내의 호출 간 상태를 유지하거나, 서버리스 애플리케이션과 인스턴스 또는 컨테이너 기반 애플리케이션 간에 파일을 공유할 수 있음.
+- Lambda@Edge
+  - Lambda@Edge란 무엇인가?
+    - [Lambda@Edge](https://aws.amazon.com/ko/lambda/edge/)를 사용하면 서버를 프로비저닝하거나 관리하지 않고 **글로벌 AWS 엣지 로케이션**에서 코드를 실행할 수 있으므로 가장 짧은 네트워크 지연 시간으로 최종 사용자에게 응답할 수 있음. Node.js 또는 Python 코드를 AWS Lambda에 업로드하고 **[Amazon CloudFront](https://aws.amazon.com/ko/cloudfront/) 요청에 대한 응답으로 함수가 트리거되도록 구성**하기만 하면 됨(즉, 최종 사용자 요청이 도착하면, 요청이 오리진으로 전달되거나 오리진에서 다시 수신되면, 최종 사용자에게 응답하기 바로 전에). 그러면 콘텐츠에 대한 요청이 수신되는대로 코드가 글로벌 AWS 로케이션에서 바로 실행되고 CloudFront 요청 볼륨에 맞춰 전 세계로 확장됨.
+  - Lambda@Edge를 사용하려면 어떻게 해야 하는가?
+    - Lambda@Edge를 사용하려면, 코드를 AWS Lambda에 업로드하고 Amazon CloudFront 요청에 대한 응답으로 트리거되도록 함수 버전을 연결하기만 하면 됨. 코드는 Lambda@Edge 서비스 한도를 충족해야 함. 현재 Lambda@Edge에서는 CloudFront 이벤트로 글로벌 호출을 수행하도록 코드를 작성할 때 Node.js와 Python을 지원함.
+  - Lambda@Edge는 언제 사용해야 하는가?
+    - Lambda@Edge는 최종 사용자가 전 세계에 분산되어 있고 지연 시간에 민감한 사용 사례에 최적화되어있음. 의사 결정에 필요한 모든 정보는 함수와 요청을 통해 **CloudFront 엣지**에서 제공할 수 있어야 함.
+  - 기존 Lambda@ 함수를 글로벌 호출에 사용하도록 배포할 수 있는가?
+    - 기존 Lambda 함수가 Lambda@Edge 서비스 요구 사항 및 한도를 충족하는 경우 해당 함수를 CloudFront 이벤트와 연결하여 글로벌 호출에 사용할 수 있음.
+  - 내 함수를 트리거하는데 사용할 수 있는 Amazon CloudFront 이벤트는 무엇인가?
+    - 다음 Amazon CloudFront 이벤트에 대한 응답으로 기능이 자동으로 트리거됨.
+      - **최종 사용자 요청** - 최종 사용자나 인터넷 상의 디바이스가 CloudFront에 HTTP(S) 요청을 하고 해당 사용자에게 가장 가까운 엣지 로케이션에 요청이 도착할 때 이 이벤트가 발생.
+      - **최종 사용자 응답** – 엣지에 있는 CloudFront 서버가 요청한 최종 사용자나 디바이스에 응답할 준비가 될 때 이 이벤트가 발생합니다.
+      - **오리진 요청** - CloudFront 엣지 서버에 캐시에서 요청된 객체가 아직 없고 백엔드 원본 웹 서버(예: Amazon EC2, Application Load Balancer 또는 Amazon S3)로 최종 사용자 요청을 보낼 준비가 되어 있을 때 이 이벤트가 발생.
+      - **오리진 응답** - 엣지에 있는 CloudFront 서버가 백엔드 원본 웹 서버에서 응답을 수신할 때 이 이벤트가 발생.
+  - AWS Lambda@Edge는 Amazon API Gateway 뒤에서 AWS Lambda를 사용하는 것과 어떻게 다른가?
+    - 다른 점은 API Gateway와 Lambda가 리전별 서비스라는 것이다. [Lambda@Edge](https://aws.amazon.com/lambda/edge/) 및 [Amazon CloudFront](https://aws.amazon.com/cloudfront/)를 사용하면 최종 사용자의 위치에 따라 여러 AWS 위치에서 로직을 실행할 수 있다.
+- 확장성 및 가용성
+  - AWS Lambda 함수의 가용성은 어떠한가?
+    - AWS Lambda는 복제 및 중복성을 사용하여 서비스 자체와 서비스가 실행하는 Lambda 함수 모두에 뛰어난 가용성을 제공하도록 설계됨. 유지 관리 기간이나 예약된 가동 중지 시간이 없음.
+  - 코드나 코드의 구성을 변경하여도 AWS Lambda 함수를 계속 사용할 수 있는가?
+    - 예. Lambda 함수 업데이트 시, 일반적으로 1분 이내로 약간의 시간이 생깁니다. 이 시간 동안 함수의 이전 버전 또는 신규 버전으로 요청이 실행됨.
+  - 동시에 실행할 수 있는 AWS Lambda 함수의 수에 제한이 있는가?
+    - AWS Lambda는 대량의 함수 인스턴스를 병렬로 실행할 수 있도록 설계됨. 하지만 AWS Lambda에는 리전별로 계정당 동시 실행 인스턴스 수에 대한 기본 안전 스로틀 값이 있음.
+  - 계정에서 동시 실행 스로틀 제한을 초과하면 어떻게 되는가?
+    - 스로틀 제한을 초과하는 경우, 동기적으로 호출된 AWS Lambda 함수가 제한 오류(오류 코드 429)를 반환. 비동기적으로 호출된 Lambda 함수는 약 15~30분 정도 일정량의 순간 트래픽을 처리할 수 있으나 그 후 들어오는 이벤트는 제한 처리되어 거부. Amazon S3 이벤트에 대한 응답으로 Lambda 함수가 호출된 경우, AWS Lambda가 거부한 이벤트는 24시간 동안 S3에서 보유 및 재시도할 수 있음. Amazon Kinesis Streams와 Amazon DynamoDB Streams의 이벤트는 Lambda 함수가 성공하거나 데이터가 만료될 때까지 재시도. Amazon Kinesis와 Amazon DynamoDB Streams에서 24시간 동안 데이터를 유지.
+  - 이벤트를 처리하는 동안 Lambda 함수 오류가 발생하면 어떻게 되는가?
+    - 오류 발생 시, 동기적으로 호출된 Lambda 함수는 예외와 함께 응답함. 비동기식으로 호출된 Lambda 함수는 최소한 3번 재시도.
+  - 내 Lambda 함수 호출이 가용 정책을 모두 사용하면 어떻게 되는가?
+    - 비동기식 호출에 대한 재시도 정책을 초과하는 경우, 이벤트가 배치될 **"데드레터큐"(DLQ)**를 구성할 수 있음. 구성된 DLQ가 없는 경우 이벤트가 거부될 수 있음. 스트림 기반 호출에 대한 재시도 정책을 초과하는 경우, 데이터가 이미 만료되었을 것이므로 거부됨.
+  - Lambda 함수용 데드레터큐로 구성할 수 있는 리소스는 무엇인가?
+    -  Amazon SQS 대기열 또는 Amazon SNS 주제를 데드레터큐로 구성할 수 있음.
+- 보안 및 액세스 제어
+  - AWS Lambda 함수가 다른 AWS 리소스에 액세스하도록 허용하려면 어떻게 해야 하는가?
+    - **IAM 역할**을 사용하여, Lambda 함수가 다른 리소스에 액세스하도록 권한을 줄 수 있음. AWS Lambda는 Lambda 함수를 실행하는 동안 IAM 역할을 맡으므로, 함수가 사용할 수 있는 AWS 리소스를 정확하고 완벽하게 제어할 수 있음.
+  - 어떤 Amazon S3 버킷이 어떤 AWS Lambda 함수를 호출할 수 있는지 제어하려면 어떻게 해야 하는가?
+    - AWS Lambda 함수에 메시지를 전송하기 위해 Amazon S3 버킷을 구성할 때, 액세스를 허용하는 리소스 정책 규칙이 생성됨.
+  - AWS Lambda 함수가 어떤 Amazon DynamoDB 테이블 또는 Amazon Kinesis Streams를 폴링할 수 있는지 제어하려면 어떻게 해야 하는가?
+    - Lambda 함수 역할에서 액세스 제어를 관리합니다. Lambda 함수에 지정한 역할에서 AWS Lambda가 폴링할 수 있는 리소스도 대신 결정하게 됨.
+  - AWS Lambda 함수가 어떤 Amazon SQS 대기열을 폴링할 수 있는지 제어하려면 어떻게 해야 하는가?
+    - **대기열 자체에 대한 리소스 정책 설정 또는 Lambda 함수의 역할**이 액세스 제어 항목을 관리할 수 있음. 두 정책이 모두 존재하는 경우, 두 가지 권한 중 좀 더 제한적인 것이 적용됨.
+  - AWS Lambda 함수로 Amazon VPC 뒤에서 리소스에 액세스할 수 있는가?
+    - 예. Amazon VPC 뒤에서 리소스에 액세스할 수 있음.
+  - Lambda 함수에 대한 VPC  지원을 활성화 및 비활성화하려면 어떻게 해야 하는가?
+    - **VPC 지원을 활성화하려면, 함수 구성 시에 보안 그룹과 단일 VPC에 하나 이상의 서브넷을 지정해야 함**. VPC 지원을 **비활성화하려면, 함수 구성을 업데이트하고 서브넷 및 보안 그룹에 대해 빈 목록을 지정**해야 함. AWS API, CLI 또는 AWS Lambda 관리 콘솔을 사용하여 이러한 설정을 변경할 수 있음.
+  - 하나의 Lambda 함수가 여러 VPC에 액세스할 수 있는가?
+    - 아니요. Lambda 함수는 단일 VPC에 대한 액세스만 제공함. 서브넷이 여러 개 지정된 경우, 모두 같은 VPC에 있어야 함. 해당 VPC를 피어링해서 다른 VPC에 연결할 수 있음.
+  - VPC에서 Lambda 함수가 인터넷 및 AWS 서비스 엔드포인트에 액세스할 수 있는가?
+    - 특정 VPC에 있는 리소스에 액세스하도록 구성된 Lambda 함수는 기본적으로 인터넷에 액세스할 수 없음. 외부 엔드포인트에 액세스할 필요가 있는 경우, 해당 트래픽을 전달하도록 **VPC에 [NAT](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html)를 생성하고, 이러한 아웃바운드 트래픽을 허용하도록 보안 그룹을 구성**해야 함.
+- Java로 작성된 AWS Lambda 함수
+  - AWS Lambda 함수 Java 코드를 어떻게 컴파일 하는가?
+    - **Maven 또는 Gradle 같은 표준 도구**를 사용하여 Lambda 함수를 컴파일할 수 있음.
+- Node.js로 작성된 AWS Lambda 함수
+  - AWS Lambda와 함께 패키지를 사용할 수 있는가?
+    - 예. 사용자 정의 패키지뿐만 아니라 NPM 패키지도 사용할 수 있음.
+  - Node.js로 작성된 AWS Lambda 함수에서 다른 프로그램을 실행할 수 있는가?
+    - 예. Lambda의 내장 샌드박스를 사용하여 배치("셸)" 스크립트, 기타 언어 런타임, 유틸리티 루틴, 실행 파일을 실행할 수 있음.
+  - 네이티브로 모듈을 Node.js로 작성된 AWS Lambda 함수와 함께 사용할 수 있는가?
+    - 예. 모든 정적 링크 네이티브 모듈뿐만 아니라 Lambda 함수 루트 디렉토리를 가리키는 rpath로 컴파일된 동적 링크 모듈도 업로드하는 ZIP 파일에 포함될 수 있음.
+  - 바이너리를 Node.js로 작성된 AWS Lambda 함수와 함께 실행될 수 있는가?
+    - 예. Node.js의 child_process 명령을 사용하면 함수에 포함한 바이너리 또는 함수가 알아볼 수 있는 Amazon Linux 실행 파일을 실행할 수 있음. 또한, node-ffmpeg 같은 명령줄 바이너리를 래핑하는 여러 NPM 패키지가 존재.
+  - Node.js로 작성된 AWS Lambda 함수 코드를 배포하려면 어떻게 해야 하는가?
+    - Node.js로 작성된 AWS Lambda 함수를 배포하려면, Javascript 코드와 종속 라이브러리를 ZIP 파일로 패키징하면 된다. 로컬 환경에서 ZIP 파일을 업로드하거나 ZIP 파일이 있는 Amazon S3 위치를 지정할 수 있다.
+- Python으로 작성된 AWS Lambda 함수
+  - Python 패키지를 AWS Lambda와 함께 사용할 수 있는가?
+    - 예. PIP를 사용해 필요한 모든 Python 패키지를 설치할 수 있음.
+- C＃으로 작성된 AWS Lambda 함수
+  - C＃으로 AWS Lambda 함수를 생성하려면 어떻게 해야 하는가?
+    - Solution Explorer에서 [Publish to AWS Lambda]를 선택하여 Visual Studio IDE로 C# Lambda 함수를 생성할 수 있음. 또는 [# Lambda CLI 도구 패치]가 설치된 닷넷 CLI에서 "dotnet lambda publish" 명령을 직접 실행할 수 있음. 이렇게 하면 게시된 DLL 어셈블리뿐만 아니라 모든 NuGet 종속성과 함께 C# 소스 코드의 ZIP 파일을 생성하여 이것을 런타임 파라미터인 "dotnetcore1.0"을 사용하여 AWS Lambda로 자동 업로드할 수 있음.
+- PowerShell로 작성된 AWS Lambda 함수
+  - PowerShell로 작성된 AWS Lambda 함수 코드를 배포하려면 어떻게 해야 하는가?
+    - PowerShell Lambda 배포 패키지는 PowerShell 스크립트, PowerShell 스크립트에서 필요로 하는 PowerShell 모듈, PowerShell Core 호스팅에 필요한 어셈블리를 포함한 ZIP 파일이다.
+- Go로 작성된 AWS Lambda 함수
+  - Go로 AWS Lambda 함수를 생성하려면 어떻게 해야 하는가?
+    - AWS CLI 또는 Lambda 콘솔을 통해 Go 실행 파일 아티팩트를 ZIP 파일로 업로드하고 go1.x 런타임을 선택.
+- Ruby로 작성된 AWS Lambda 함수
+  - Ruby로 작성된 AWS Lambda 함수 코드를 배포하려면 어떻게 해야 하는가?
+    -  Ruby로 작성된 Lambda 함수를 배포하려면 Ruby 코드와 젬을 ZIP 파일로 패키징.
+- 기타 주제
+  - Amazon Linux 또는 다른 언어 런타임의 버전을 변경할 수 있는가?
+    - 아니요. AWS Lambda는 서비스의 모든 사용자에게 단일 버전의 운영 체제와 관리형 언어 런타임을 제공함.
+  - AWS Lambda API로 요청된 호출을 기록 및 감사하려면 어떻게 해야하는가?
+    - AWS Lambda는 AWS CloudTrail과 통합되어 있음. AWS CloudTrail은 계정의 API 사용을 설명하는 로그 파일을 기록하고 Amazon S3 버킷에 전송.
+  - 여러 Lambda 함수 간 호출을 조정하려면 어떻게 해야하는가?
+    - Amazon Step Functions를 사용하여 여러 Lambda 함수 호출을 조정할 수 있음. 여러 Lambda 함수를 순차적으로 호출하여 한 함수의 결과를 다른 함수에 전달하거나 병렬로 호출할 수 있음.
+

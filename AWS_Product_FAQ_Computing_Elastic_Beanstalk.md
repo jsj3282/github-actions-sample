@@ -1,0 +1,61 @@
+---
+Title: 1-3. AWS_Product_FAQ_Computing_Elastic_Beanstalk
+Publish Date: 2020-10-16 15:06:44
+---
+
+### 4) AWS Elastic Beanstalk
+
+- 일반
+  - AWS Elastic Beanstalk는 무엇인가?
+    - AWS Elastic Beanstalk를 사용하면 개발자가 손쉽게 AWS 클라우드에서 애플리케이션을 신속하게 배포하고 관리할 수 있음. 개발자가 애플리케이션을 업로드하기만 하면 Elastic Beanstalk가 자동으로 용량 프로비저닝, 부하 분산, Auto-Scaling, 애플리케이션 상태 모니터링 등의 배포 세부 정보를 처리.
+  - 누가 AWS Elastic Beanstalk를 사용해야 하는가?
+    - AWS 클라우드에서 애플리케이션을 몇 분 내에 배포하고 관리하기를 원하는 사람이면 누구든지 사용할 수 있음. AWS Elastic Beanstalk는 Java, .NET, PHP, Node.js, Python, Ruby, Go 및 Docker 웹 애플리케이션을 지원.
+  - AWS Elastic Beanstalk에서 지원하는 언어와 개발 스택은 무엇인가?
+    - Java 애플리케이션용 Apache Tomcat
+    - PHP 애플리케이션용 Apache HTTP Server
+    - Python 애플리케이션용 Apache HTTP Server
+    - Node.js 애플리케이션용 Apache HTTP Server 또는 Nginx
+    - Ruby 애플리케이션용 Passenger 또는 Puma
+    - .NET 애플리케이션용 Microsoft IIS 7.5, 8.0 및 8.5
+    - Java SE
+    - Docker
+    - Go
+  - 개발자는 AWS Elastic Beanstalk로 이전에는 할 수 없었던 어떤 작업을 할 수 있는가?
+    - AWS Elastic Beanstalk는 **용량 프로비저닝, 로드 밸런싱, Auto Scaling, 애플리케이션 배포 등의 세부 정보를 자동으로 처리하여 사용자의 애플리케이션 버전을 실행할 수 있는 환경을 만듦**. 배포 가능한 코드(예: WAR 파일)를 업로드하기만 하면 나머지는 AWS Elastic Beanstalk에서 처리.  AWS Toolkit for Visual Studio와 AWS Toolkit for Eclipse를 사용하면 IDE 내에서 애플리케이션을 AWS Elastic Beanstalk에 배포하고 관리할 수 있음. 애플리케이션이 실행되면 Elastic Beanstalk가 모니터링, 애플리케이션 버전 배포, 기본 상태 점검 등의 관리 작업을 자동으로 수행하고, 로그 파일에 쉽게 액세스할 수 있게 해줌. 개발자는 Elastic Beanstalk를 통해 서버 프로비저닝, 로드 밸런싱 설정 또는 확장 관리 등의 배포 관련 작업의 부담에서 벗어나 애플리케이션 개발에 집중할 수 있음.
+  - AWS Elastic Beanstalk는 기존의 애플리케이션 컨테이너나 PaaS(Platform as a Service) 솔루션과 어떻게 다른가?
+    - 대부분의 기존 애플리케이션 컨테이너나 PaaS는 프로그래밍 부담을 줄여주지만 개발자가 유연성과 제어력을 활발히 발휘할 수 없음. 개발자는 공급업체가 사전 정의한 설정을 그대로 따를 수밖에 없으며, 애플리케이션 인프라의 여러 요소에 대한 제어권을 가질 기회가 거의 없거나 전혀 없음. 하지만 **AWS Elastic Beanstalk의 경우, 개발자는 애플리케이션을 실행하는 AWS 리소스를 완벽히 제어할 수 있음**. 개발자는 Elastic Beanstalk의 관리 기능을 사용해 인프라 구성 요소의 일부(또는 전부)를 완벽하게 관리할 수 있음.
+  - AWS Elastic Beanstalk는 어떤 운영 체제를 사용하는가?
+    - AWS Elastic Beanstalk는 Amazon Linux AMI 및 Windows Server AMI에서 실행됨.
+- 시작하기
+- 데이터베이스 및 스토리지
+  - AWS Elastic Beanstalk가 Amazon S3에 저장하는 특정 대상이 있는가?
+    - 예. AWS Elastic Beanstalk는 **애플리케이션 파일을 Amazon S3에 저장하고, 선택적으로 서버 로그 파일도 저장**. AWS Management Console, AWS Toolkit for Visual Studio 또는 AWS Toolkit for Eclipse를 사용하는 경우, Amazon S3 버킷이 계정에 자동으로 생성되고, 업로드한 파일이 자동으로 로컬 클라이언트에서 Amazon S3로 복사됨. 필요에 따라 서버 로그 파일을 1시간 간격으로 Amazon S3에 복사하도록 Elastic Beanstalk를 설정할 수 있음. 환경 구성 설정을 편집하여 이 작업을 수행할 수 있음.
+  - Amazon S3를 사용해 이미지와 같은 애플리케이션 데이터를 저장할 수 있는가?
+    - 예. Amazon S3를 사용하여 애플리케이션을 저장할 수 있음. 가장 간단한 방법은 애플리케이션의 배포 가능한 파일에 AWS SDK를 포함하는 것이다.
+  - AWS Elastic Beanstalk에서 어떤 데이터베이스 솔루션을 사용할 수 있습니까?
+    - AWS Elastic Beanstalk에서 사용할 수 있는 데이터 보존 기술에는 제한이 없습니다. Amazon Relational Database Service(RDS) 또는 Amazon DynamoDB, Microsoft SQL Server 또는 Oracle을 사용하거나, Amazon EC2에서 실행되는 다른 관계형 데이터베이스를 사용할 수 있음.
+  - AWS Elastic Beanstalk에서 사용할 데이터베이스를 어떻게 설정하는가?
+    - Elastic Beanstalk에서 자동으로 Amazon RDS DB 인스턴스를 프로비저닝할 수 있음. DB 인스턴스에 대한 연결 정보는 환경 변수에 의해 애플리케이션에 노출됨.
+  - 테스트 단계에서 생산 단계로 넘어갈 때 애플리케이션 코드를 변경해야 하는가?
+    - AWS Elastic Beanstalk의 경우에는 변경할 필요가 없음. Elastic Beanstalk는 환경 구성에서 연결 정보를 지정할 수 있음. 애플리케이션 코드에서 연결 문자열을 추출하여 쉽게 다른 Elastic Beanstalk 환경을 설정하고 다른 데이터베이스를 사용할 수 있음.
+- 보안
+  - 어떻게 내 애플리케이션을 비공개로 하는가?
+    - 기본적으로 애플리케이션은 누구나 액세스할 수 있도록 myapp.elasticbeanstalk.com에 공개되어 있음. Amazon VPC를 사용하여 사용자가 정의한 가상 네트워크에서 애플리케이션을 비공개적이고 격리된 공간에 프로비저닝할 수 있음. 특정 보안 그룹 규칙, 네트워크 ACL 및 고객 라우팅 테이블을 사용하여 이 가상 네트워크를 비공개로 설정할 수 있습니다. 또한, EC2 보안 그룹 설정을 변경함으로써 다른 수신 트래픽(SSH 등)을 애플리케이션 서버로 전송할 것인지 아닌지를 손쉽게 제어할 수 있습니다.
+  - Virtual Private Cloud(VPC) 내에서 내 애플리케이션을 실행할 수 있는가?
+    - 예, VPC에서 사용자 애플리케이션을 실행할 수 있음.
+  - Identity & Access Management(IAM)를 AWS Elastic Beanstalk에서 사용할 수 있는가?
+    - 예. 적절한 권한이 있는 IAM 사용자는 AWS Elastic Beanstalk와 통신할 수 있음.
+-  관리형 플랫폼 업데이트
+  - 내 애플리케이션을 실행하는 기본 플랫폼의 환경을 자동으로 최신 상태로 유지하려면 어떻게 해야 하는가?
+    - 지정한 유지 관리 기간 동안 AWS Elastic Beanstalk 환경이 애플리케이션을 실행하는 기본 플랫폼의 최신 버전으로 자동 업데이트되도록 옵트인할 수 있음. Elastic Beanstalk는 운영 체제, 웹 및 애플리케이션 서버, 언어 및 프레임워크 업데이트와 함께 지원되는 플랫폼(Java, PHP, Ruby, Node.js, Python, .NET, Go 및 Docker)의 새로운 버전을 정기적으로 릴리스함.
+  - 관리형 플랫폼 업데이트를 시작하려면 ?
+    - Elastic Beanstalk가 플랫폼 업데이트를 자동으로 관리하도록 하려면, Elastic Beanstalk 콘솔의 구성 탭에서 관리형 플랫폼 업데이트를 활성화하거나 EB CLI 또는 API를 사용해 활성화해야 함. 이 기능을 활성화한 후, 허용할 업데이트 유형과 업데이트 시간을 구성할 수 있음.
+  - 어떤 종류의 플랫폼 버전 업데이트가 관리형 플랫폼 업데이트에 적용되는가?
+    - AWS Elastic Beanstalk는 새로운 패치와 마이너 플랫폼 버전에 대한 플랫폼 업데이트를 자동으로 수행할 수 있다. Elastic Beanstalk에서는 메이저 플랫폼 버전 업데이트(예: Java 7 Tomcat 7에서 Java 8 Tomcat 8로 업데이트)는 자동으로 수행하지 않는다. 이러한 업데이트에는 이전 버전과 호환되지 않는 변경 사항이 포함되어 추가 테스트가 필요하기 때문이다. 이런 경우, 업데이트를 수동으로 시작해야 한다.
+  - AWS Elastic Beanstalk에서는 "메이저", "마이너" 및 "패치" 버전 릴리스를 어떻게 구분하는가?
+    - 메이저 버전은 호환되지 않는 변경 사항이 있을 때.
+    - 마이너 버전은 이전 버전과 호환되는 방식으로 다른 기능이 추가될 때.
+    - 패치 버전은 이전 버전과 호환되는 버그 수정이 있을 때
+- 결제
+- 지원
+
